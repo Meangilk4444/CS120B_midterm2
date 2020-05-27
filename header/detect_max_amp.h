@@ -3,8 +3,8 @@
 //   static int i;  // defines a local int named i
 
 /* complete the state machine. */
-static unsigned amp = 0x00;
-static unsigned i = 0x00;
+static unsigned max = 0x00;
+static unsigned j = 0x00;
 static unsigned temp = 0x00;
 void Detect_Max_Amp()
 {
@@ -23,29 +23,29 @@ void Detect_Max_Amp()
             break;
 
 	 case M:
-	    	if((amp != 0) && amp > temp)
+	    	if((max != 0) && amp > temp)
 		{
 			temp = amp;
 			detect_max_amp_state = M;
 		}
-		else if(amp == 0)
+		else if(max == 0)
 		{
 			detect_max_amp_state = Wait;
 		}
 		break;
 
 	 case Wait:
-		if(amp == 0)
+		if(max == 0)
 		{
-			i++;
+			j++;
 			detect_max_amp_state = Wait;
 		}
-		else if(amp != 0)
+		else if(max != 0)
 		{
 			detect_max_amp_state = M;
 		}
 
-		if(i >= 10)
+		if(j >= 10)
 		{
 			detect_max_amp_state = DMAInit;
 		}
@@ -57,13 +57,13 @@ void Detect_Max_Amp()
     switch(detect_max_amp_state)
     {
         case DMAInit:
-		i = 0x00;
+		j = 0x00;
 		temp = 0x00;
             break;
 
 	case M:
 	    max_led = temp;
-	    i = 0x00;
+	    j = 0x00;
 	    break;
         default:
             break;

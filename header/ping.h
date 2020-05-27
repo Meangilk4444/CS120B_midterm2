@@ -7,7 +7,7 @@
 /*complete the state machine*/
 static unsigned char L = 0x00;
 static unsigned char H = 0x00;
-static unsigned char i = 0x00;
+static unsigned char q = 0x00;
 
 void Ping()
 {
@@ -17,25 +17,25 @@ void Ping()
             break;
 
 	case HIGH:
-	    if( i <= H)
+	    if( q <= H)
 	    {
 		    ping_state = HIGH;
 	    }
 	    else
 	    {
-		    i = 0;
+		    q = 0;
 		    ping_state = LOW;
 	    }
 		break;
 
 	case LOW:
-		if(i <= L)
+		if(q <= L)
 		{
 			ping_state = LOW;
 		}
 		else
 		{
-			i = 0;
+			q = 0;
 			ping_state = HIGH;
 		}
 		break;
@@ -52,11 +52,11 @@ void Ping()
             break;
 
 	case HIGH: 
-	    i++;
+	    q++;
 	    ping_led = 0x01;
 		break;
 	case LOW:
-	    i++;
+	    q++;
 	    ping_led = 0x00;
     	break;
         default:
